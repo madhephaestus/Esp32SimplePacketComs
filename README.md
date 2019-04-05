@@ -1,6 +1,15 @@
 # Esp32SimplePacketComs 
 A framework for controlling one ESP from another using SimplePacketComs over UDP. 
 
+# Library depenancies
+
+These are the libraries availible through the Arduino library manager that are depenancies for this library.
+
+```
+SimplePacketComs
+Esp32WifiManager
+```
+
 # Connect to Wifi Network
 To connect to a network named "mine" with a password "pass" do the following:
 
