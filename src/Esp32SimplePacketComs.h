@@ -7,7 +7,7 @@
 #include <iostream>
 #include <SimplePacketComs.h>
 #include <server/UDPSimplePacket.h>
-
+#include <Esp32WifiManager.h>
 //#include <controller/ControlFactory.h>
 void launchControllerServer();
 
