@@ -69,19 +69,26 @@ int32_t UDPSimplePacket::sendPacket(uint8_t * buffer, uint32_t numberOfBytes) {
 //wifi event handler
 void UDPSimplePacket::WiFiEvent(WiFiEvent_t event) {
 	switch (event) {
-	case SYSTEM_EVENT_STA_GOT_IP:/**< ESP32 station got IP from connected AP */
+	case ARDUINO_EVENT_WIFI_AP_STAIPASSIGNED:/**< ESP32 station got IP from connected AP */
 		//initializes the UDP state
 		//This initializes the transfer buffer
 		//Serial.println("UDPSimplePacket::WiFiEvent");
 		udp->begin(WiFi.localIP(), SIMPLE_PACKET_UDP_PORT);
+		Serial.println("UDPSimplePacket ARDUINO_EVENT_WIFI_AP_STAIPASSIGNED!");
 		connected = true;
 		break;
-	case SYSTEM_EVENT_STA_DISCONNECTED: /**< ESP32 station disconnected from AP */
+	case ARDUINO_EVENT_WIFI_AP_STADISCONNECTED:
+		Serial.println("ARDUINO_EVENT_WIFI_AP_STADISCONNECTED");
+		// no break
+	case ARDUINO_EVENT_WIFI_STA_DISCONNECTED: /**< ESP32 station disconnected from AP */
 		connected = false;
+		Serial.println("UDPSimplePacket Disconnect!");
 		break;
-	case SYSTEM_EVENT_AP_STACONNECTED: /**< a station connected to ESP32 soft-AP */
-		if (!connected)
+	case ARDUINO_EVENT_WIFI_AP_STACONNECTED:
+		if (!connected){
 			udp->begin(WiFi.softAPIP(), SIMPLE_PACKET_UDP_PORT);
+			Serial.println("UDPSimplePacket ARDUINO_EVENT_WIFI_AP_STACONNECTED!");
+		}
 		connected = true;
 		break;
 	default:
@@ -94,4 +101,8 @@ void WiFiEventServer(WiFiEvent_t event) {
 	if (simple != NULL)
 		simple->WiFiEvent(event);
 }
+
+
+
+
 
