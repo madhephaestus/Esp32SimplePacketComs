@@ -78,7 +78,7 @@ void UDPSimplePacket::WiFiEvent(WiFiEvent_t event) {
 		connected = true;
 		break;
 	case ARDUINO_EVENT_WIFI_AP_STADISCONNECTED:
-		Serial.println("ARDUINO_EVENT_WIFI_AP_STADISCONNECTED");
+		Serial.println("UDPSimplePacket ARDUINO_EVENT_WIFI_AP_STADISCONNECTED");
 		// no break
 	case ARDUINO_EVENT_WIFI_STA_DISCONNECTED: /**< ESP32 station disconnected from AP */
 		connected = false;
@@ -91,7 +91,20 @@ void UDPSimplePacket::WiFiEvent(WiFiEvent_t event) {
 		}
 		connected = true;
 		break;
+	case ARDUINO_EVENT_WIFI_STA_GOT_IP:
+		Serial.println("UDPSimplePacket ARDUINO_EVENT_WIFI_STA_GOT_IP");
+		// no break
+	case ARDUINO_EVENT_WIFI_STA_GOT_IP6:
+		Serial.println("UDPSimplePacket ARDUINO_EVENT_WIFI_STA_GOT_IP6");
+		if (!connected) {
+			udp->begin(WiFi.localIP(), SIMPLE_PACKET_UDP_PORT);
+			Serial.println("UDPSimplePacket CONNECTED!");
+		}
+		connected = true;
+		break;
 	default:
+		//Serial.println("\n\n\n Unknowm UDP SimplePacketComs\n\n\n");
+		//Serial.println(event);
 		break;
 	}
 }

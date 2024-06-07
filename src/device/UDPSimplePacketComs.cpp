@@ -140,6 +140,8 @@ void UDPSimplePacketComs::WiFiEvent(WiFiEvent_t event) {
 		connected = false;
 		break;
 	default:
+		Serial.println("\n\n\n Unknowm UDP SimplePacketComs\n\n\n");
+		Serial.println(event);
 		break;
 	}
 }
