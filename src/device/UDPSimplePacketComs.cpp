@@ -125,13 +125,17 @@ bool UDPSimplePacketComs::isResponseReady() {
 //wifi event handler
 void UDPSimplePacketComs::WiFiEvent(WiFiEvent_t event) {
 	switch (event) {
-	case SYSTEM_EVENT_STA_GOT_IP:/**< ESP32 station got IP from connected AP */
+		 //SYSTEM_EVENT_STA_GOT_IP
+	case ARDUINO_EVENT_WIFI_STA_GOT_IP6:
+	case ARDUINO_EVENT_WIFI_STA_GOT_IP:/**< ESP32 station got IP from connected AP */
 		//initializes the UDP state
 		//This initializes the transfer buffer
 		udp->begin(WiFi.localIP(), SIMPLE_PACKET_UDP_PORT);
 		connected = true;
 		break;
-	case SYSTEM_EVENT_STA_DISCONNECTED: /**< ESP32 station disconnected from AP */
+	//SYSTEM_EVENT_STA_DISCONNECTED
+	case ARDUINO_EVENT_WIFI_STA_DISCONNECTED:
+	case ARDUINO_EVENT_WIFI_AP_STADISCONNECTED: /**< ESP32 station disconnected from AP */
 		connected = false;
 		break;
 	default:
