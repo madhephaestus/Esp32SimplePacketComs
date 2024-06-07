@@ -132,6 +132,7 @@ void UDPSimplePacketComs::WiFiEvent(WiFiEvent_t event) {
 		//This initializes the transfer buffer
 		udp->begin(WiFi.localIP(), SIMPLE_PACKET_UDP_PORT);
 		connected = true;
+		Serial.println("\n\n\nConnecting UDP SimplePacketComs\n\n\n");
 		break;
 	//SYSTEM_EVENT_STA_DISCONNECTED
 	case ARDUINO_EVENT_WIFI_STA_DISCONNECTED:
